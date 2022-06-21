@@ -8,4 +8,8 @@ class Category{
   static Category fromDatabase(DocumentSnapshot doc){
     return Category(category: doc['category'], veg: doc['veg'] as bool);
   }
+  static Category fromMap(Map<String,dynamic> doc){
+    Category category = Category(category: doc['category'], veg: doc['veg']);
+    return category;
+  }
 }

@@ -9,6 +9,7 @@ class Cuisine{
   Cuisine({required this.name,required this.category,required this.price});
 
   static Cuisine fromDatabase(DocumentSnapshot doc){
-    return Cuisine(name: doc['name'], category: Category.fromDatabase(doc['category']), price: doc['price']);
+    Cuisine cuisine = Cuisine(name: doc['name'], category: Category.fromMap(doc['category']), price: (doc['price'] as double));
+    return cuisine;
   }
 }

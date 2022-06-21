@@ -6,8 +6,10 @@ import '../models/cuisine.dart';
 
 class DatabaseServices{
   late CollectionReference categoryCollection;
+  late CollectionReference cuisineCollection;
   DatabaseServices(){
     categoryCollection = FirebaseFirestore.instance.collection('Categories');
+    cuisineCollection = FirebaseFirestore.instance.collection('Cuisines');
   }
 
   Stream<List<Category>> getCategories(){
@@ -15,6 +17,6 @@ class DatabaseServices{
   }
 
   Stream<List<Cuisine>> getCuisines(){
-    return categoryCollection.snapshots().map((snap) => snap.docs.map((e) => Cuisine.fromDatabase(e)).toList());
+    return cuisineCollection.snapshots().map((snap) => snap.docs.map((e) => Cuisine.fromDatabase(e)).toList());
   }
 }
