@@ -1,10 +1,20 @@
-import 'package:firebase_core/firebase_core.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../models/category.dart';
+import '../models/cuisine.dart';
+
 class DatabaseServices{
-  DatabaseServices();
+  late CollectionReference categoryCollection;
+  DatabaseServices(){
+    categoryCollection = FirebaseFirestore.instance.collection('Categories');
+  }
 
-  void createCollec(){
+  Stream<List<Category>> getCategories(){
+    return categoryCollection.snapshots().map((snap) => snap.docs.map((e) => Category.fromDatabase(e)).toList());
+  }
 
+  Stream<List<Cuisine>> getCuisines(){
+    return categoryCollection.snapshots().map((snap) => snap.docs.map((e) => Cuisine.fromDatabase(e)).toList());
   }
 }
