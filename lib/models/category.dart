@@ -12,4 +12,11 @@ class Category{
     Category category = Category(category: doc['category'], veg: doc['veg']);
     return category;
   }
+
+  static Map<String,dynamic> toMap(Category category){
+    return {
+      'category' : category.category,
+      'veg' : category.veg
+    };
+  }
 }

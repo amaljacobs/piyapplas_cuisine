@@ -12,4 +12,12 @@ class Cuisine{
     Cuisine cuisine = Cuisine(name: doc['name'], category: Category.fromMap(doc['category']), price: (doc['price'] as double));
     return cuisine;
   }
+
+  static Map<String,dynamic> toMap(Cuisine cuisine){
+    return {
+      'name' : cuisine.name,
+      'price' : cuisine.price,
+      'category' : Category.toMap(cuisine.category)
+    };
+  }
 }
