@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_order/screens/admin.dart';
 import 'package:restaurant_order/screens/customer/home.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:restaurant_order/screens/kitchen.dart';
+import 'package:restaurant_order/screens/portal_selection.dart';
 import 'firebase_options.dart';
 
 void main() async{
@@ -18,12 +21,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      initialRoute: '/',
+      routes: {
+        '/':(context)=>const PortalSelect(),
+        '/orders':(context)=>const CustomerHome(title: ''),
+        '/kitchen':(context)=>const Kitchen(),
+        '/admin':(context)=>const Admin()
+      },
       debugShowCheckedModeBanner: false,
       title: 'Piyaplas Cuisine Orders',
       theme: ThemeData(
         primarySwatch: Colors.deepOrange,
       ),
-      home: const CustomerHome(title: 'Flutter Demo Home Page'),
     );
   }
 }

@@ -66,6 +66,7 @@ class _CustomerHomeState extends State<CustomerHome> {
             builder: (context, catgoriesSnap) {
               categories = [Category(category: 'All', veg: false)];
               if (catgoriesSnap.hasData) {
+
                 categories.addAll(catgoriesSnap.data!);
                 // categories.insert(0, Category(category: 'All', veg: false));
               }
@@ -75,8 +76,8 @@ class _CustomerHomeState extends State<CustomerHome> {
                     if (cuisineSnap.hasData) {
                       cuisines = cuisineSnap.data!;
                       selectedCuisines = (selectedCategory.isEmpty || selectedCategory == 'All')
-                          ? cuisines
-                          : cuisines.where((element) => element.category.category == selectedCategory).toList();
+                          ? cuisines.where((element) => (element.visibility)).toList()
+                          : cuisines.where((element) => (element.category.category == selectedCategory)&&(element.visibility)).toList();
                       filteredCuisines =
                           (searchText.isEmpty) ? selectedCuisines : selectedCuisines.where((element) => element.name.contains(searchText)).toList();
                     }
@@ -174,14 +175,19 @@ class _CustomerHomeState extends State<CustomerHome> {
           children: [
             FloatingActionButton.large(
               onPressed: () async{
-                Order order = Order(cuisines: cart, orderTime: DateTime.now());
-                await DatabaseServices().placeOrders(order);
+                if(cart.isNotEmpty){
+                  Order order = Order(cuisines: cart, orderTime: DateTime.now(),status: 'placed',orderNum: 0);
+                  await DatabaseServices().placeOrders(order);
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Order Placed')));
-                setState((){
-                  cart=[];
-                });
+                  setState((){
+                    cart=[];
+                  });
+                }
+                else{
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Select an item to place order')));
+                }
               },
-              child: Icon(Icons.dining_outlined),
+              child: const Icon(Icons.dining_outlined),
             ),
           ],
         ));

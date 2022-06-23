@@ -9,7 +9,7 @@ class Category{
     return Category(category: doc['category'], veg: doc['veg'] as bool);
   }
   static Category fromMap(Map<String,dynamic> doc){
-    Category category = Category(category: doc['category'], veg: doc['veg']);
+    Category category = Category(category: doc['category'].toString(), veg: (doc['veg'] as bool));
     return category;
   }
 
