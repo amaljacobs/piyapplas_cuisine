@@ -27,7 +27,8 @@ class Order{
   }
 
   static Order fromDatabase(DocumentSnapshot doc){
-    Order order = Order(orderNum:doc['orderNum'],cuisines: (doc['cuisines'] as List).map((e) => Cuisine.fromMap(e)).toList(), orderTime: (doc['orderTime'] as Timestamp).toDate(), status: doc['status'].toString());
+    Order order = Order(orderNum:int.parse(doc['orderNum'].toString()),cuisines: (doc['cuisines'] as List).map((e) => Cuisine.fromMap(e)).toList(), orderTime: (doc['orderTime'] as Timestamp).toDate(), status: doc['status'].toString());
+    print(order.total);
     return order;
   }
 }

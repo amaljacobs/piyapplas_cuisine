@@ -42,7 +42,8 @@ class DatabaseServices{
   }
   
   Stream<List<Order>> getOrders(){
-    return ordersCollection.snapshots().map((snap) => snap.docs.map((e) => Order.fromDatabase(e)).toList());
+    Stream<List<Order>> orders = ordersCollection.snapshots().map((snap) => snap.docs.map((e) => Order.fromDatabase(e)).toList());
+    return (orders);
   }
 
   Future<void> updateOrderStatus(Order order) async{

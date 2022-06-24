@@ -41,6 +41,7 @@ class _KitchenState extends State<Kitchen> {
         stream: DatabaseServices().getOrders(),
         builder: (context, orderSnap) {
           if (orderSnap.hasData) {
+            print('XXXX');
             orders = orderSnap.data!;
             selectedOrders = orders.where((element) => element.status == 'placed').toList();
             selectedOrders.sort((a,b)=>(b.orderTime.compareTo(a.orderTime)));
@@ -131,7 +132,9 @@ class _KitchenState extends State<Kitchen> {
     return StreamBuilder<List<Order>>(
         stream: DatabaseServices().getOrders(),
         builder: (context, orderSnap) {
+          print('assdasdaadadds');
           if (orderSnap.hasData) {
+            print('XXXXXX');
             orders = orderSnap.data!;
             selectedOrders = orders.where((element) => element.status == 'completed').toList();
           }
